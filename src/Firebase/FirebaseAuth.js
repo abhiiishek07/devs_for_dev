@@ -7,14 +7,6 @@ import {
   signOut,
 } from "firebase/auth";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCkKH17a7RIVpWeocirKgF32RMerJj_lYc",
-//   authDomain: "devs-for-dev.firebaseapp.com",
-//   projectId: "devs-for-dev",
-//   storageBucket: "devs-for-dev.appspot.com",
-//   messagingSenderId: "404910649536",
-//   appId: "1:404910649536:web:2dbb4f49ffb535fbefbd25",
-// };
 const firebaseConfig = {
   apiKey: `${process.env.REACT_APP_API_KEY}`,
   authDomain: `${process.env.REACT_APP_AUTH_DOMAIN}`,
