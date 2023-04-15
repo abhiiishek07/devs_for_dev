@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { useState } from "react";
+import ProfileCard from "../../Components/Cards/ProfileCard";
 function Home() {
   const skillOptions = [
     {
@@ -132,34 +133,46 @@ function Home() {
   }, [searchedSkills]);
   return (
     <Container>
-      <div className="searchBar">
-        <Select
-          // menuPlacement="top"
-          autoFocus
-          isMulti
-          components={animatedComponents}
-          isSearchable
-          placeholder="Search by Skills 🚀"
-          onChange={(e) => console.log(e)}
-          styles={customStyles}
-          options={skillOptions}
-        />
+      <div className="wrapper">
+        <div className="searchBar">
+          <Select
+            // menuPlacement="top"
+            // autoFocus
+            isMulti
+            components={animatedComponents}
+            isSearchable
+            placeholder="Search by Skills 🚀"
+            onChange={(e) => setSearchedSkills(e)}
+            styles={customStyles}
+            options={skillOptions}
+          />
+        </div>
+        <div className="cardsContainer">
+          <ProfileCard />
+        </div>
       </div>
     </Container>
   );
 }
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   /* background-color: aliceblue; */
   display: flex;
   justify-content: center;
+  /* flex-direction: column; */
   /* align-items: center; */
   .searchBar {
-    width: 75%;
+    width: 100%;
     height: 10vh;
     /* border: 1px solid red; */
     margin-top: 3rem;
+  }
+  .wrapper {
+    width: 80%;
+    height: auto;
+    border: 2px solid black;
+    margin-left: 3rem;
   }
 `;
 

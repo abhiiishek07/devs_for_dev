@@ -57,9 +57,10 @@ function Navbar() {
         {" "}
         <h2 className="title">
           Hi!{" "}
-          {userProfileData.fullName.length > 0
+          {/* {userProfileData.fullName.length > 0
             ? userProfileData.fullName
-            : "User"}
+            : "User"} */}
+          {userProfileData.fullName}
           {/* user */}
         </h2>
         <Box sx={{ flexGrow: 0 }}>
