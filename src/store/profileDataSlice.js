@@ -2,10 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const profileDataSlice = createSlice({
   name: "profileData",
-  initialState: {
-    fullName: "",
-    bio: "",
-  },
+  initialState: {},
   reducers: {
     updateProfileData(state, action) {
       return (state = action.payload);

@@ -12,10 +12,13 @@ import { useDispatch } from "react-redux";
 import { updateProfileData } from "../../store/profileDataSlice";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { doc, setDoc } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
+import { db } from "../../Firebase/FirebaseAuth";
 // import { Height } from "@mui/icons-material";
 
 function Profile() {
+  const user = useSelector((state) => state.auth);
   const userProfileData = useSelector((state) => state.profileData);
   const [profileData, setProfileData] = useState(userProfileData);
   const { handleSubmit } = useForm();
@@ -163,6 +166,26 @@ function Profile() {
       label: "DSA",
     },
   ];
+  const uploadUserData = async () => {
+    await setDoc(doc(db, "users", user[1]), {
+      fullName: profileData.fullName,
+      bio: profileData.bio,
+      branch: profileData.branch,
+      section: profileData.section,
+      passingYear: profileData.passingYear,
+      linkedin: profileData.linkedin,
+      github: profileData.github,
+      twitter: profileData.twitter,
+      skills: profileData.skills,
+    })
+      .then(() => {
+        console.log("Data updated");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // console.log("cry aa raha", user);
+  };
   const onSubmit = () => {
     console.log(profileData);
     dispatch(updateProfileData(profileData));
@@ -176,7 +199,9 @@ function Profile() {
       progress: undefined,
       theme: "light",
     });
+    uploadUserData();
   };
+
   const years = ["2023", "2024", "2025", "2026"];
   const customStyles = {
     control: (base) => ({
@@ -215,6 +240,7 @@ function Profile() {
                 label="Bio"
                 fullWidth
                 value={profileData.bio}
+                inputProps={{ maxLength: 75 }}
                 onChange={(e) =>
                   setProfileData((prevState) => ({
                     ...prevState,
@@ -360,6 +386,12 @@ function Profile() {
               />
             </div>
             <input className="submit_btn" type="submit" value="Save Changes" />
+            {/* <input
+              className="reset_btn"
+              type="reset"
+              value="Reset"
+              onClick={reset}
+            /> */}
           </Wrapper>
           <ToastContainer
             position="top-center"
@@ -401,7 +433,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   margin-top: 4rem;
   width: 50%;
-  min-height: 107vh;
+  min-height: 115vh;
   max-height: 100vh;
   height: auto;
   border: 1px solid black;
@@ -432,6 +464,18 @@ const Wrapper = styled.div`
     color: white;
     font-family: "Montserrat", sans-serif;
     background-color: #4caf50;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 0.3rem;
+  }
+  .reset_btn {
+    margin: 1rem;
+    width: 96%;
+    height: 5vh;
+    color: white;
+    font: bold;
+    font-family: "Montserrat", sans-serif;
+    background-color: #fd5c63;
     cursor: pointer;
     border: 0px;
     border-radius: 0.3rem;

@@ -5,9 +5,23 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Home from "./Screen/Homepage/Home";
 import { useSelector } from "react-redux";
 import Profile from "./Screen/Profile/Profile";
+import { useDispatch } from "react-redux";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./Firebase/FirebaseAuth";
+import { useEffect } from "react";
+import { updateProfileData } from "./store/profileDataSlice";
 function App() {
   const user = useSelector((state) => state.auth);
-  console.log(user);
+  let dispatch = useDispatch();
+  const getAllUsersData = async () => {
+    const userRef = doc(db, "users", user[1]);
+    const docSnap = await getDoc(userRef);
+    console.log("docy", docSnap.data());
+    dispatch(updateProfileData(docSnap.data()));
+  };
+  useEffect(() => {
+    getAllUsersData();
+  });
   return (
     <>
       <BrowserRouter>

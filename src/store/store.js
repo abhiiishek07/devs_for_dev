@@ -31,4 +31,11 @@ const store = configureStore({
       },
     }),
 });
+
+// const store = configureStore({
+//   reducer: {
+//     auth: authReducer,
+//     profileData: profileDataReducer,
+//   },
+// });
 export default store;

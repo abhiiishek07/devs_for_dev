@@ -6,19 +6,43 @@ import { signInWithGoogle } from "../../Firebase/FirebaseAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../../store/authSlice";
+import { setDoc, doc, getDoc } from "firebase/firestore";
+import { db } from "../../Firebase/FirebaseAuth";
 function Navbar() {
-  const user = useSelector((state) => state.auth);
+  // const user = useSelector((state) => state.auth);
   const auth = getAuth();
   const dispatch = useDispatch();
-  console.log("hime", user);
-  // const initialData = {
-  //   fullName: "",
-  //   branch: "",
-  // };
+  const addNewUser = async (uid) => {
+    const userRef = doc(db, "users", uid);
+    const data = {
+      fullName: "",
+      bio: "",
+      branch: "",
+      section: "",
+      passingYear: "",
+      linkedin: "",
+      github: "",
+      twitter: "",
+      skills: [],
+    };
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      console.log("user exits");
+    } else {
+      setDoc(userRef, data)
+        .then(() => {
+          console.log("Document has been added successfully");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(addUser([user.displayName, user.uid, user.photoURL]));
+        addNewUser(user.uid);
         // dispatch(userProfileData(initialData));
       } else {
         dispatch(removeUser([]));

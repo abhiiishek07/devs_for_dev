@@ -60,6 +60,7 @@ function Navbar() {
           {userProfileData.fullName.length > 0
             ? userProfileData.fullName
             : "User"}
+          {/* user */}
         </h2>
         <Box sx={{ flexGrow: 0 }}>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
