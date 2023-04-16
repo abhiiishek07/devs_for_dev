@@ -165,6 +165,26 @@ function Profile() {
       value: "DSA",
       label: "DSA",
     },
+    {
+      id: "22",
+      value: "Kotlin",
+      label: "Kotlin",
+    },
+    {
+      id: "23",
+      value: "Flutter",
+      label: "Flutter",
+    },
+    {
+      id: "24",
+      value: "IOS Dev",
+      label: "IOS Dev",
+    },
+    {
+      id: "25",
+      value: "AWS",
+      label: "AWS",
+    },
   ];
   const uploadUserData = async () => {
     await setDoc(doc(db, "users", user[1]), {

@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import profileDataReducer from "./profileDataSlice";
+import allUsersReducer from "./allUsersSlice";
 import storage from "redux-persist/lib/storage";
 import {
   persistReducer,
@@ -19,6 +20,7 @@ const persistConfig = {
 const reducer = combineReducers({
   auth: authReducer,
   profileData: profileDataReducer,
+  allUsers: allUsersReducer,
 });
 const persistedReducer = persistReducer(persistConfig, reducer);
 

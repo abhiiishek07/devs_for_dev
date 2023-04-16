@@ -135,5 +135,6 @@ const ButtonWrapper = styled.div`
     padding: 1rem;
     font-family: "Montserrat", sans-serif;
   }
+  margin-right: 2rem;
 `;
 export default Navbar;

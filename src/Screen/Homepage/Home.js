@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { useState } from "react";
 import ProfileCard from "../../Components/Cards/ProfileCard";
-function Home() {
+import { useSelector } from "react-redux";
+function Home(props) {
+  // console.log("home me", props.allUsersList);
+  const users = useSelector((state) => state.allUsers);
+  const [usersData, setUsersData] = useState(users);
   const skillOptions = [
     {
       id: "2",
@@ -117,6 +121,26 @@ function Home() {
       value: "DSA",
       label: "DSA",
     },
+    {
+      id: "22",
+      value: "Kotlin",
+      label: "Kotlin",
+    },
+    {
+      id: "23",
+      value: "Flutter",
+      label: "Flutter",
+    },
+    {
+      id: "24",
+      value: "IOS Dev",
+      label: "IOS Dev",
+    },
+    {
+      id: "25",
+      value: "AWS",
+      label: "AWS",
+    },
   ];
   const animatedComponents = makeAnimated();
   const customStyles = {
@@ -127,10 +151,7 @@ function Home() {
       backgroundColor: "#f3f6f9",
     }),
   };
-  const [searchedSkills, setSearchedSkills] = useState([]);
-  useEffect(() => {
-    console.log(searchedSkills);
-  }, [searchedSkills]);
+
   return (
     <Container>
       <div className="wrapper">
@@ -142,13 +163,27 @@ function Home() {
             components={animatedComponents}
             isSearchable
             placeholder="Search by Skills 🚀"
-            onChange={(e) => setSearchedSkills(e)}
+            // onChange={(e) => setSearchedSkills(e)}
             styles={customStyles}
             options={skillOptions}
           />
         </div>
         <div className="cardsContainer">
-          <ProfileCard />
+          {usersData.map((user) => {
+            return (
+              <ProfileCard
+                fullname={user.fullName}
+                bio={user.bio}
+                branch={user.branch}
+                section={user.section}
+                passingYear={user.passingYear}
+                linkedin={user.linkedin}
+                github={user.github}
+                twitter={user.twitter}
+                skills={user.skills}
+              />
+            );
+          })}
         </div>
       </div>
     </Container>
@@ -171,8 +206,18 @@ const Container = styled.div`
   .wrapper {
     width: 80%;
     height: auto;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     margin-left: 3rem;
+  }
+  .cardsContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    gap: 1.3rem;
+    flex-wrap: wrap;
+    /* background-color: red; */
+    width: 99%;
+    height: auto;
   }
 `;
 
