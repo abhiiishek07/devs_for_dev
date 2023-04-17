@@ -11,26 +11,25 @@ import { db } from "./Firebase/FirebaseAuth";
 import { useEffect } from "react";
 import { updateProfileData } from "./store/profileDataSlice";
 import { setUser } from "./store/allUsersSlice";
-// import Home from "./Screen/Homepage/Home";
+
 function App() {
   const user = useSelector((state) => state.auth);
+  console.log(user[1]);
   let dispatch = useDispatch();
   const allUsersList = [];
   const getAllUsersData = async () => {
-    // const allUsersList = [];
     const userRef = doc(db, "users", user[1]);
     const docSnap = await getDoc(userRef);
     dispatch(updateProfileData(docSnap.data()));
 
     const allUsersRef = await getDocs(collection(db, "users"));
 
-    allUsersRef.forEach((user) => {
-      allUsersList.push(user.data());
-      // dispatch(setUser(user.data()));
+    allUsersRef.forEach((userInfo) => {
+      // console.log("uid", userInfo.data().fullName);
+      if (user[1] !== userInfo.data().uid) allUsersList.push(userInfo.data());
     });
     console.log("in app", allUsersList);
     dispatch(setUser(allUsersList));
-    // <Home allUsersList={allUsersList} />;
   };
 
   useEffect(() => {

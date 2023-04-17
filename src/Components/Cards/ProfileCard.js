@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 
 function ProfileCard(props) {
   // const user = useSelector((state) => state.auth);
-  console.log("in card", props.profilePic);
+  // console.log("in card", props.profilePic);
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseOver = () => {
     setIsHovering(true);

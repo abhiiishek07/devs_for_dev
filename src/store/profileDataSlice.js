@@ -12,6 +12,8 @@ const profileDataSlice = createSlice({
     github: "",
     twitter: "",
     skills: [],
+    profilePic: "",
+    uid: "",
   },
   reducers: {
     updateProfileData(state, action) {

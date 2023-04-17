@@ -6,12 +6,15 @@ import { signInWithGoogle } from "../../Firebase/FirebaseAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../../store/authSlice";
-import { setDoc, doc, getDoc } from "firebase/firestore";
+import { collection, setDoc, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../Firebase/FirebaseAuth";
+import { setUser } from "../../store/allUsersSlice";
+import { updateProfileData } from "../../store/profileDataSlice";
 function Navbar() {
-  // const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth);
   const auth = getAuth();
   const dispatch = useDispatch();
+
   const addNewUser = async (uid) => {
     const userRef = doc(db, "users", uid);
     const data = {
@@ -24,6 +27,8 @@ function Navbar() {
       github: "",
       twitter: "",
       skills: [],
+      profilePic: "",
+      uid: "",
     };
     const docSnap = await getDoc(userRef);
     if (docSnap.exists()) {
@@ -38,11 +43,35 @@ function Navbar() {
         });
     }
   };
+  // const getAllUsersData = async () => {
+  //   console.log("ro dunga ab");
+  //   const allUsersList = [];
+  //   const userRef = doc(db, "users", user[1]);
+  //   const docSnap = await getDoc(userRef)
+  //     .then(() => {
+  //       dispatch(updateProfileData(docSnap.data()));
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   console.log("hell");
+
+  //   const allUsersRef = await getDocs(collection(db, "users"));
+
+  //   allUsersRef.forEach((user) => {
+  //     allUsersList.push(user.data());
+  //     // dispatch(setUser(user.data()));
+  //   });
+  //   console.log("in login navbar", allUsersList);
+  //   dispatch(setUser(allUsersList));
+  // };
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        // getAllUsersData();
         dispatch(addUser([user.displayName, user.uid, user.photoURL]));
         addNewUser(user.uid);
+
         // dispatch(userProfileData(initialData));
       } else {
         dispatch(removeUser([]));
@@ -62,7 +91,10 @@ function Navbar() {
       <TempWrapper></TempWrapper>
       <ButtonWrapper>
         <Button
-          onClick={signInWithGoogle}
+          onClick={() => {
+            // getAllUsersData();
+            signInWithGoogle();
+          }}
           style={{
             height: 35,
             width: 100,

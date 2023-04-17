@@ -198,6 +198,7 @@ function Profile() {
       twitter: profileData.twitter,
       skills: profileData.skills,
       profilePic: user[2],
+      uid: user[1],
     })
       .then(() => {
         console.log("Data updated");
