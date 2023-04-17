@@ -9,7 +9,8 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import IconButton from "@mui/material/IconButton";
 
 function ProfileCard(props) {
-  const user = useSelector((state) => state.auth);
+  // const user = useSelector((state) => state.auth);
+  console.log("in card", props.profilePic);
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -40,7 +41,7 @@ function ProfileCard(props) {
             alt="bg"
           />
           <div className="profile_img">
-            <img className="pf_img" src={user[2]} alt="user" />
+            <img className="pf_img" src={props.profilePic} alt="user" />
           </div>
         </div>
 

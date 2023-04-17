@@ -197,6 +197,7 @@ function Profile() {
       github: profileData.github,
       twitter: profileData.twitter,
       skills: profileData.skills,
+      profilePic: user[2],
     })
       .then(() => {
         console.log("Data updated");

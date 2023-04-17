@@ -181,6 +181,7 @@ function Home(props) {
                 github={user.github}
                 twitter={user.twitter}
                 skills={user.skills}
+                profilePic={user.profilePic}
               />
             );
           })}
