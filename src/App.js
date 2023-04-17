@@ -26,7 +26,8 @@ function App() {
 
     allUsersRef.forEach((userInfo) => {
       // console.log("uid", userInfo.data().fullName);
-      if (user[1] !== userInfo.data().uid) allUsersList.push(userInfo.data());
+      if (userInfo.data().uid.length > 0 && user[1] !== userInfo.data().uid)
+        allUsersList.push(userInfo.data());
     });
     console.log("in app", allUsersList);
     dispatch(setUser(allUsersList));

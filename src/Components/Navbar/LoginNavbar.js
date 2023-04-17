@@ -6,10 +6,9 @@ import { signInWithGoogle } from "../../Firebase/FirebaseAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../../store/authSlice";
-import { collection, setDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../Firebase/FirebaseAuth";
-import { setUser } from "../../store/allUsersSlice";
-import { updateProfileData } from "../../store/profileDataSlice";
+
 function Navbar() {
   const user = useSelector((state) => state.auth);
   const auth = getAuth();
