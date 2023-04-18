@@ -15,12 +15,12 @@ import { ToastContainer, toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
 import { db } from "../../Firebase/FirebaseAuth";
-// import { Height } from "@mui/icons-material";
 
 function Profile() {
   const user = useSelector((state) => state.auth);
   const userProfileData = useSelector((state) => state.profileData);
   const [profileData, setProfileData] = useState(userProfileData);
+  const [bgImg, setBgImg] = useState("");
   const { handleSubmit } = useForm();
   const dispatch = useDispatch();
   const animatedComponents = makeAnimated();
@@ -187,6 +187,11 @@ function Profile() {
     },
   ];
   const uploadUserData = async () => {
+    // let bgImg = "";
+    // fetch(`https://source.unsplash.com/1600x900/?coding`).then((response) => {
+    //   bgImg = response.url;
+    //   console.log("hfjs", bgImg);
+    // });
     await setDoc(doc(db, "users", user[1]), {
       fullName: profileData.fullName,
       bio: profileData.bio,
@@ -199,6 +204,7 @@ function Profile() {
       skills: profileData.skills,
       profilePic: user[2],
       uid: user[1],
+      bgImg: bgImg,
     })
       .then(() => {
         console.log("Data updated");
@@ -207,6 +213,12 @@ function Profile() {
         console.log(error);
       });
     // console.log("cry aa raha", user);
+  };
+  const getBgImage = () => {
+    fetch(`https://source.unsplash.com/1600x900/?tech`).then((response) => {
+      console.log("bg img is", response.url);
+      setBgImg(response.url);
+    });
   };
   const onSubmit = () => {
     console.log(profileData);
@@ -221,6 +233,7 @@ function Profile() {
       progress: undefined,
       theme: "light",
     });
+    getBgImage();
     uploadUserData();
   };
 

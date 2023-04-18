@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
@@ -8,7 +8,10 @@ import { useSelector } from "react-redux";
 function Home(props) {
   // console.log("home me", props.allUsersList);
   const users = useSelector((state) => state.allUsers);
+  // const allUsers = useSelector((state) => state.allUsers);
   const [usersData, setUsersData] = useState(users);
+  // const [searchedSkills, setSearchedSkills] = useState([]);
+  // console.log("skills", searchedSkills);
   const skillOptions = [
     {
       id: "2",
@@ -152,42 +155,87 @@ function Home(props) {
     }),
   };
 
+  const filterUsers = (searchedSkills) => {
+    console.log("in home", searchedSkills);
+    let n1 = Object.keys(users).length;
+    let n2 = Object.keys(searchedSkills).length;
+    const searchedSkillsId = [];
+    searchedSkills.map((skill) => {
+      searchedSkillsId.push(skill.id);
+    });
+    console.log(searchedSkillsId);
+    if (n2 === 0) {
+      setUsersData(users);
+    }
+    const filteredUsers = [];
+    for (let i = 0; i < n1; i++) {
+      // console.log("users", usersData[i]);
+      const skills = users[i].skills;
+      // console.log("filtering", skills);
+      const usersSkillsId = [];
+      skills.map((skill) => {
+        usersSkillsId.push(skill.id);
+      });
+      const hasAllSkill = searchedSkillsId.every((id) =>
+        usersSkillsId.includes(id)
+      );
+      if (hasAllSkill) filteredUsers.push(users[i]);
+    }
+    console.log("filtered users", filteredUsers);
+    setUsersData(filteredUsers);
+  };
+
   return (
-    <Container>
-      <div className="wrapper">
-        <div className="searchBar">
-          <Select
-            // menuPlacement="top"
-            // autoFocus
-            isMulti
-            components={animatedComponents}
-            isSearchable
-            placeholder="Search by Skills 🚀"
-            // onChange={(e) => setSearchedSkills(e)}
-            styles={customStyles}
-            options={skillOptions}
-          />
+    <>
+      <Container>
+        <div className="wrapper">
+          <div className="searchBar">
+            <Select
+              // menuPlacement="top"
+              // autoFocus
+              isMulti
+              components={animatedComponents}
+              isSearchable
+              placeholder="Search by Skills 🚀"
+              onChange={(e) => filterUsers(e)}
+              styles={customStyles}
+              options={skillOptions}
+            />
+          </div>
+          <div className="cardsContainer">
+            {usersData.map((user) => {
+              return (
+                <ProfileCard
+                  fullname={user.fullName}
+                  bio={user.bio}
+                  branch={user.branch}
+                  section={user.section}
+                  passingYear={user.passingYear}
+                  linkedin={user.linkedin}
+                  github={user.github}
+                  twitter={user.twitter}
+                  skills={user.skills}
+                  profilePic={user.profilePic}
+                  bgImg={user.bgImg}
+                />
+              );
+            })}
+          </div>
         </div>
-        <div className="cardsContainer">
-          {usersData.map((user) => {
-            return (
-              <ProfileCard
-                fullname={user.fullName}
-                bio={user.bio}
-                branch={user.branch}
-                section={user.section}
-                passingYear={user.passingYear}
-                linkedin={user.linkedin}
-                github={user.github}
-                twitter={user.twitter}
-                skills={user.skills}
-                profilePic={user.profilePic}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </Container>
+      </Container>
+      <FooterDiv>
+        Made with ❤️ by {"     "}
+        <h3>
+          <a
+            href="https://www.linkedin.com/in/abhishek-k-96abb6210/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Abhishek
+          </a>
+        </h3>
+      </FooterDiv>
+    </>
   );
 }
 const Container = styled.div`
@@ -212,14 +260,31 @@ const Container = styled.div`
   }
   .cardsContainer {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-around; */
+    /* display: inline-block; */
     margin-top: 3rem;
-    gap: 1.3rem;
+    gap: 3rem 7rem;
     flex-wrap: wrap;
     /* background-color: red; */
     width: 99%;
     height: auto;
   }
+`;
+const FooterDiv = styled.div`
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #001f27;
+  color: white;
+  /* top: 1400px; */
+  a {
+    text-decoration: none;
+    padding-left: 0.5rem;
+    color: white;
+  }
+  margin-top: 5rem;
 `;
 
 export default Home;

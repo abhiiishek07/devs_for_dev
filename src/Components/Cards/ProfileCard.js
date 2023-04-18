@@ -35,11 +35,7 @@ function ProfileCard(props) {
     <>
       <Wrapper>
         <div className="background_img">
-          <img
-            className="bg_img"
-            src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y29kaW5nfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-            alt="bg"
-          />
+          <img className="bg_img" src={props.bgImg} alt="bg" />
           <div className="profile_img">
             <img className="pf_img" src={props.profilePic} alt="user" />
           </div>
@@ -135,7 +131,7 @@ const Wrapper = styled.div`
   } */
   /* border-radius: 0.5rem; */
   transition: all 0.2s ease;
-
+  /* margin: 1.5rem 5.5rem 0 0; */
   overflow: hidden;
   /* :hover {
     height: 60vh;
@@ -221,6 +217,7 @@ const Wrapper = styled.div`
     margin-bottom: 1rem;
     display: flex;
     flex-direction: row;
+
     /* margin-bottom: 0.8rem; */
   }
   .showSkillsWrap {
@@ -237,6 +234,14 @@ const Wrapper = styled.div`
     margin-top: 4rem;
     margin-left: 2rem;
     padding: 0.2rem;
+    flex-wrap: nowrap;
+    width: 80%;
+    /* overflow: hidden; */
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
     /* overflow: h; */
     /* word-spacing: 20px; */
 
@@ -252,9 +257,10 @@ const Wrapper = styled.div`
     /* background-color: red; */
     /* width: auto;
      */
-    margin: 0 4px 0 4px;
+    /* margin: 0 4px 0 4px; */
     padding: 2px;
     display: inline;
   }
 `;
+
 export default ProfileCard;

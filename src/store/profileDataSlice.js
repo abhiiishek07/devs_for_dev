@@ -14,6 +14,7 @@ const profileDataSlice = createSlice({
     skills: [],
     profilePic: "",
     uid: "",
+    bgImg: "",
   },
   reducers: {
     updateProfileData(state, action) {
