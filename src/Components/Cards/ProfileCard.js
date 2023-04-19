@@ -111,7 +111,7 @@ function ProfileCard(props) {
 }
 // render(<Cont />, document.getElementById("root"));
 const Wrapper = styled.div`
-  min-height: 50vh;
+  height: 50vh;
   width: 20rem;
   border-radius: 0.8rem;
   /* background-color: aliceblue; */
