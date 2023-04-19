@@ -105,7 +105,7 @@ function ProfileCard(props) {
         ) : (
           <div className="skills_div">
             {props.skills.map((skill) => {
-              return <h5 className="skill_text">{skill.value}</h5>;
+              return <div className="skill_wrapper">{skill.value}</div>;
             })}
           </div>
         )}
@@ -229,19 +229,27 @@ const Wrapper = styled.div`
     /* position: absolute; */
   }
   .skills_div {
-    /* background-color: pink; */
+    background-color: pink;
     height: 18.2vh;
     margin-top: 4rem;
     margin-left: 2rem;
-    padding: 0.2rem;
-    flex-wrap: nowrap;
+    /* padding: 0.2rem; */
+
     width: 80%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    flex-wrap: wrap;
+    /* justify-content: space-around; */
+    align-content: flex-start;
+    /* align-content: stretch; */
     /* overflow: hidden; */
-    white-space: pre-wrap;
+    /* white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
-    word-wrap: break-word;
+    word-wrap: break-word; */
     /* overflow: h; */
     /* word-spacing: 20px; */
 
@@ -260,6 +268,17 @@ const Wrapper = styled.div`
     /* margin: 0 4px 0 4px; */
     padding: 2px;
     display: inline;
+  }
+  .skill_wrapper {
+    width: auto;
+    height: 30px;
+    background-color: #19c0a6;
+    margin: 0;
+    padding: 0;
+    /* gap: 0.1rem; */
+    max-height: inherit;
+    margin: 0.3rem;
+    /* overflow-y: auto; */
   }
 `;
 

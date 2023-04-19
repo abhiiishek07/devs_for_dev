@@ -5,7 +5,8 @@ import makeAnimated from "react-select/animated";
 import { useState } from "react";
 import ProfileCard from "../../Components/Cards/ProfileCard";
 import { useSelector } from "react-redux";
-function Home(props) {
+
+function Home() {
   // console.log("home me", props.allUsersList);
   const users = useSelector((state) => state.allUsers);
   // const allUsers = useSelector((state) => state.allUsers);
