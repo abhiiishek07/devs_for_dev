@@ -285,7 +285,6 @@ function Profile() {
       progress: undefined,
       theme: "light",
     });
-
     uploadUserData();
   };
 
