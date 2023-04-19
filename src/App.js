@@ -42,8 +42,8 @@ function App() {
         {user.length === 0 ? (
           <Routes>
             {" "}
-            <Route path="/" element={<Login />} />
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         ) : (
           <Routes>
