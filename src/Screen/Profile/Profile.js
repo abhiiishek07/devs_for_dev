@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { TextField } from "@mui/material";
@@ -285,7 +285,7 @@ function Profile() {
       progress: undefined,
       theme: "light",
     });
-    getBgImage();
+
     uploadUserData();
   };
 
@@ -298,6 +298,9 @@ function Profile() {
       backgroundColor: "#f3f6f9",
     }),
   };
+  useEffect(() => {
+    getBgImage();
+  }, []);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>

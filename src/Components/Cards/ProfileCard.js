@@ -266,7 +266,7 @@ const Wrapper = styled.div`
     padding: 0;
     /* gap: 0.1rem; */
     max-height: inherit;
-    margin: 0.3rem;
+    margin: 0.5rem;
     /* overflow-y: auto; */
   }
   .skill_img {
