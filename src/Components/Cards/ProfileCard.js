@@ -7,30 +7,12 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 
 function ProfileCard(props) {
   // const user = useSelector((state) => state.auth);
   // console.log("in card", props.profilePic);
-  const [isHovering, setIsHovering] = useState(false);
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-  const HoverableDiv = ({ handleMouseOver, handleMouseOut }) => {
-    return (
-      <div
-        className="showSkillsWrap"
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-        // style={{ backgroundColor: "red" }}
-      >
-        <span>Show Skills</span>
-      </div>
-    );
-  };
+  const [showSkills, setShowSkill] = useState(false);
   return (
     <>
       <Wrapper>
@@ -41,7 +23,7 @@ function ProfileCard(props) {
           </div>
         </div>
 
-        {!isHovering ? (
+        {!showSkills ? (
           <>
             <div className="bio_div">
               <div>
@@ -105,22 +87,31 @@ function ProfileCard(props) {
         ) : (
           <div className="skills_div">
             {props.skills.map((skill) => {
-              return <div className="skill_wrapper">{skill.value}</div>;
+              console.log("jjnjn", skill);
+              return (
+                <div className="skill_wrapper">
+                  <div className="skill_img">
+                    <img src={skill.image} alt="skill" />
+                  </div>
+                  <div>{skill.value}</div>
+                </div>
+              );
             })}
           </div>
         )}
         <hr />
-        <HoverableDiv
-          handleMouseOver={handleMouseOver}
-          handleMouseOut={handleMouseOut}
-        />
+        <div className="showSkillsWrap">
+          <Button onClick={() => setShowSkill(!showSkills)}>
+            {showSkills ? "Hide Skills" : "Show Skills"}
+          </Button>
+        </div>
       </Wrapper>
     </>
   );
 }
 // render(<Cont />, document.getElementById("root"));
 const Wrapper = styled.div`
-  height: 49vh;
+  height: 50vh;
   width: 20rem;
   border-radius: 0.8rem;
   /* background-color: aliceblue; */
@@ -222,20 +213,30 @@ const Wrapper = styled.div`
   }
   .showSkillsWrap {
     margin: 0;
-    height: 3vh;
+    height: 4vh;
     display: flex;
     justify-content: center;
     color: #19c0a6;
+    /* background-color: red; */
     /* position: absolute; */
   }
   .skills_div {
-    background-color: pink;
-    height: 18.2vh;
+    /* background-color: pink; */
+    height: 19vh;
     margin-top: 4rem;
     margin-left: 2rem;
     /* padding: 0.2rem; */
-
+    /* transition: all ease 1s; */
     width: 80%;
+    /* -webkit-transition: all 250ms ease;
+    -moz-transition: all 250ms ease;
+    -o-transition: all 250ms ease;
+    transition: all 250ms ease;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d; */
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -243,21 +244,6 @@ const Wrapper = styled.div`
     flex-wrap: wrap;
     /* justify-content: space-around; */
     align-content: flex-start;
-    /* align-content: stretch; */
-    /* overflow: hidden; */
-    /* white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
-    word-wrap: break-word; */
-    /* overflow: h; */
-    /* word-spacing: 20px; */
-
-    /* transition: width 2s;
- */
-    /* transition-timing-function: ease-in;
-    transition-timing-function: cubic-bezier(0.42, 0, 1, 1);
-    transition: top 5s; */
   }
   .skill_text {
     margin: 0;
@@ -270,15 +256,29 @@ const Wrapper = styled.div`
     display: inline;
   }
   .skill_wrapper {
+    display: flex;
+    justify-content: center;
+    /* color-interpolation-filters: ; */
     width: auto;
-    height: 30px;
-    background-color: #19c0a6;
+    height: 25px;
+    /* background-color: #19c0a6; */
     margin: 0;
     padding: 0;
     /* gap: 0.1rem; */
     max-height: inherit;
     margin: 0.3rem;
     /* overflow-y: auto; */
+  }
+  .skill_img {
+    /* background-color: red; */
+    width: 20px;
+    height: inherit;
+    /* object-fit: cover; */
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
   }
 `;
 

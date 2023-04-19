@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     getAllUsersData();
-  });
+  }, []);
   return (
     <>
       <BrowserRouter>
