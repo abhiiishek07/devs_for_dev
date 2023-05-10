@@ -41,7 +41,7 @@ function Navbar() {
 
       allUsersRef.forEach((userInfo) => {
         // console.log("uid", userInfo.data().fullName);
-        if (userInfo.data().uid && user[1] !== userInfo.data().uid)
+        if (userInfo.data().uid && uid !== userInfo.data().uid)
           allUsersList.push(userInfo.data());
       });
       console.log("in app", allUsersList);
