@@ -19,8 +19,7 @@ function Navbar() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   const userProfileData = useSelector((state) => state.profileData);
-  console.log(userProfileData.fullName);
-  console.log("user in nav", user);
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };

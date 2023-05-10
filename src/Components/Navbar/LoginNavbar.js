@@ -35,10 +35,8 @@ function Navbar() {
     if (docSnap.exists()) {
       console.log("user exits");
       const allUsersList = [];
-      const userRef = doc(db, "users", user[1]);
-      const docSnap = await getDoc(userRef);
       dispatch(updateProfileData(docSnap.data()));
-
+      console.log("dying");
       const allUsersRef = await getDocs(collection(db, "users"));
 
       allUsersRef.forEach((userInfo) => {
