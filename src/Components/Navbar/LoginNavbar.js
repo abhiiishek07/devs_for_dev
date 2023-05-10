@@ -37,15 +37,20 @@ function Navbar() {
       const allUsersList = [];
       dispatch(updateProfileData(docSnap.data()));
       console.log("dying");
-      const allUsersRef = await getDocs(collection(db, "users"));
+      try {
+        const allUsersRef = await getDocs(collection(db, "users"));
 
-      allUsersRef.forEach((userInfo) => {
-        // console.log("uid", userInfo.data().fullName);
-        if (userInfo.data().uid && uid !== userInfo.data().uid)
-          allUsersList.push(userInfo.data());
-      });
-      console.log("in app", allUsersList);
-      dispatch(setUser(allUsersList));
+        allUsersRef.forEach((userInfo) => {
+          // console.log("uid", userInfo.data().fullName);
+          if (userInfo.data().uid && uid !== userInfo.data().uid)
+            // allUsersList.push(userInfo.data());
+            dispatch(setUser(userInfo.data()));
+        });
+        console.log("in app", allUsersList);
+        // dispatch(setUser(allUsersList));
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       setDoc(userRef, data)
         .then(() => {
