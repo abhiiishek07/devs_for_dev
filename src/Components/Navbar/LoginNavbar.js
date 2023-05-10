@@ -6,8 +6,10 @@ import { signInWithGoogle } from "../../Firebase/FirebaseAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../../store/authSlice";
-import { setDoc, doc, getDoc } from "firebase/firestore";
+import { setDoc, doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../../Firebase/FirebaseAuth";
+import { updateProfileData } from "../../store/profileDataSlice";
+import { setUser } from "../../store/allUsersSlice";
 
 function Navbar() {
   const user = useSelector((state) => state.auth);
@@ -32,6 +34,20 @@ function Navbar() {
     const docSnap = await getDoc(userRef);
     if (docSnap.exists()) {
       console.log("user exits");
+      const allUsersList = [];
+      const userRef = doc(db, "users", user[1]);
+      const docSnap = await getDoc(userRef);
+      dispatch(updateProfileData(docSnap.data()));
+
+      const allUsersRef = await getDocs(collection(db, "users"));
+
+      allUsersRef.forEach((userInfo) => {
+        // console.log("uid", userInfo.data().fullName);
+        if (userInfo.data().uid && user[1] !== userInfo.data().uid)
+          allUsersList.push(userInfo.data());
+      });
+      console.log("in app", allUsersList);
+      dispatch(setUser(allUsersList));
     } else {
       setDoc(userRef, data)
         .then(() => {
